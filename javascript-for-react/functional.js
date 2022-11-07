@@ -145,4 +145,19 @@ console.log(uniqueColors);
 
 
 // Higher-Order Functions
+const userLogs = (userName) => (message) => console.log(`${userName} -> ${message}`);
+const log2 = userLogs("ali222")
+log2("has said I`m go to school this morning")
 
+// Recursion
+const countdown = (value, fn, delay = 1000) => {
+  fn(value);
+  return value > 0 ? setTimeout(() => countdown(value - 1, fn, delay), delay) : value;
+};
+const log4 = (value) => console.log(value);
+countdown(10, log4);
+
+// Composition
+const template = "hh:mm:ss tt";
+const clockTime = template.replace("hh", "03").replace("mm", "33").replace("ss", "33").replace("tt", "PM");
+console.log(clockTime);
