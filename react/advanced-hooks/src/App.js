@@ -8,8 +8,17 @@ import { Numbers } from "./components/Number";
 import { Phrase } from "./components/Phrase";
 import { User } from "./components/User";
 import { WordCount } from "./components/WordCount";
-
+import { faker } from "@faker-js/faker";
+import { FixedSizeList } from "react-window";
 function App() {
+  const renderRow = ({ index, style }) => (
+    <div style={{ ...style, ...{ display: "flex" } }}>
+      <img src={bigList[index].avatar} alt={bigList[index].name} width={50} />
+      <p>
+        {bigList[index].name} - {bigList[index].email}
+      </p>
+    </div>
+  );
   const [cats, setCats] = useState(["Biscuit", "Jungle", "Outlaw"]);
   const tahoe_peaks = [
     { name: "Freel Peak", elevation: 10891 },
@@ -17,18 +26,23 @@ function App() {
     { name: "Pyramid Peak", elevation: 9983 },
     { name: "Mt. Tallac", elevation: 9735 },
   ];
+  const bigList = [...Array(5000)].map(() => ({
+    name: faker.internet.userName(),
+    email: faker.internet.email(),
+    avatar: faker.internet.avatar(),
+  }));
+  const renderItem = (item) => (
+    <div style={{ display: "flex" }}>
+      <img src={item.avatar} alt={item.name} width={50} />
+      <p>
+        {item.name} - {item.email}
+      </p>
+    </div>
+  );
   return (
-    <>
-      <List
-        data={tahoe_peaks}
-        renderEmpty={<p>this list is empty</p>}
-        renderItem={(item) => (
-          <>
-            {item.name} - {item.elevation.toLocaleString()}ft
-          </>
-        )}
-      />
-    </>
+    <FixedSizeList height={window.innerHeight} width={window.innerWidth - 20} itemCount={bigList.length} itemSize={50}>
+      {renderRow}
+    </FixedSizeList>
   );
 }
 
