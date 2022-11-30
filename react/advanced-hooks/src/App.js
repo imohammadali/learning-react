@@ -10,6 +10,7 @@ import { User } from "./components/User";
 import { WordCount } from "./components/WordCount";
 import { faker } from "@faker-js/faker";
 import { FixedSizeList } from "react-window";
+import GithubUser from "./components/GithubUser";
 function App() {
   const renderRow = ({ index, style }) => (
     <div style={{ ...style, ...{ display: "flex" } }}>
@@ -39,11 +40,7 @@ function App() {
       </p>
     </div>
   );
-  return (
-    <FixedSizeList height={window.innerHeight} width={window.innerWidth - 20} itemCount={bigList.length} itemSize={50}>
-      {renderRow}
-    </FixedSizeList>
-  );
+  return <GithubUser login="mohammadaliez" />;
 }
 
 export default App;
